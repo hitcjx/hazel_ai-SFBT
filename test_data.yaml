@@ -1,0 +1,75 @@
+# SFBT策略生成器测试数据
+
+test_cases:
+  # 测试案例1：标准推进 S1→S2
+  - name: "标准推进_合作构建到目标构建"
+    context: |
+      U: 我今天真的很累，感觉什么都做不好
+      A: 害，这种状态真的很难受。具体是哪方面让你觉得累？
+      U: 主要是学习，看着书本脑子一片空白
+      A: 嗯……那种"想学学不进去"的感觉确实挺折磨人的
+      U: 有时候还行吧，上周三稍微好点，那时候朋友陪我聊了会
+    current_package:
+      selected_method: "应对问题"
+    sfbt_turn: 5
+    remaining_minutes: 8
+    expected:
+      selected_method: "例外情境"
+      current_module: "S1_合作构建"
+
+  # 测试案例2：链式动作 例外→量尺
+  - name: "链式动作_例外到量尺"
+    context: |
+      U: 上周三那会儿，聊了什么让你感觉稍微好点？
+      A: 就是随便聊聊，也没聊什么特别的
+      U: 嗯，确实
+    current_package:
+      selected_method: "例外情境"
+      strategic_intend: "打破'总是如此'的思维，当前处于S1_合作构建阶段"
+    sfbt_turn: 6
+    remaining_minutes: 7
+    expected:
+      selected_method: "量尺问题"
+      current_module: "S2_目标构建"
+
+  # 测试案例3：低能量状态
+  - name: "低能量_应对问题"
+    context: |
+      U: 我真的不行了，连下床的力气都没有
+      A: 唉……那种整个人被掏空的感觉，真的很难受
+      U: 我也不知道该怎么办了
+    current_package:
+      selected_method: "例外情境"
+    sfbt_turn: 3
+    remaining_minutes: 10
+    expected:
+      selected_method: "应对问题"
+      current_module: "S1_合作构建"
+
+  # 测试案例4：黄金例外优先
+  - name: "优先级_黄金例外"
+    context: |
+      U: 我感觉总是在这状态，但是上周有一会儿确实稍微好点
+      A: 上周？具体是什么时候让你觉得稍微不同？
+      U: 周三下午吧，朋友陪我聊了会天
+    current_package:
+      selected_method: "应对问题"
+    sfbt_turn: 7
+    remaining_minutes: 6
+    expected:
+      selected_method: "例外情境"
+      current_module: "S3_资源挖掘"
+
+  # 测试案例5：提及重要他人
+  - name: "关系问题_引入他人视角"
+    context: |
+      U: 我爸妈好像也不理解我
+      A: 那种感觉很孤单，好像没人能懂你
+      U: 是的，只有朋友还能说说话
+    current_package:
+      selected_method: "应对问题"
+    sfbt_turn: 8
+    remaining_minutes: 5
+    expected:
+      selected_method: "关系问题"
+      current_module: "S3_资源挖掘"
